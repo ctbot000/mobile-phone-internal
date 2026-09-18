@@ -1,0 +1,5 @@
+# local agent state
+.claude/
+
+# dev scratch
+.DS_Store

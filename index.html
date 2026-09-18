@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside a Mobile Phone — How It Actually Works</title>
+<meta name="description" content="An interactive, visual explainer: what is inside a smartphone, how your voice becomes a radio wave, how cells hand you over, how the screen feels your finger, and what the chip is doing.">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" content="Inside a Mobile Phone — How It Actually Works">
+<meta property="og:description" content="Interactive explainer: the hardware stack, the radio link, cell handover, capacitive touch, the SoC and the software stack.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='9' y='2' width='14' height='28' rx='3' fill='%230a0e17' stroke='%234dd8e0' stroke-width='2'/%3E%3Crect x='12' y='6' width='8' height='16' rx='1' fill='%234dd8e0' opacity='.35'/%3E%3Ccircle cx='16' cy='26' r='1.6' fill='%234dd8e0'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20"><rect x="7" y="2" width="10" height="20" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 5.2h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="19" r="1.1" fill="currentColor"/></svg>
+    </span>
+    <span class="brand-text">Inside a Phone</span>
+  </a>
+  <nav class="navlinks" aria-label="Sections">
+    <a href="#anatomy">Anatomy</a>
+    <a href="#journey">Signal</a>
+    <a href="#radio">Radio</a>
+    <a href="#cells">Cells</a>
+    <a href="#touch">Touch</a>
+    <a href="#soc">Chip</a>
+    <a href="#stack">Software</a>
+  </nav>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch colour theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></g></svg>
+  </button>
+</header>
+
+<main id="main">
+
+<!-- ───────────────────────── HERO ───────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">An interactive teardown</p>
+      <h1>How a mobile phone<br><span class="grad">actually works</span></h1>
+      <p class="lede">
+        It is a radio, a camera, a computer and a battery, squeezed into seven
+        millimetres of glass and aluminium. Below, seven things you can poke at:
+        pull the phone apart layer by layer, follow your voice all the way to the
+        other person's ear, walk between cell towers, and watch the screen feel
+        your finger.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#anatomy">Open it up</a>
+        <a class="btn" href="#journey">Follow a phone call</a>
+      </div>
+      <ul class="hero-stats">
+        <li><b>~0.2 W</b><span>what your phone radiates — less than a nightlight</span></li>
+        <li><b>~3 µs</b><span>for the radio wave to reach a tower 1 km away</span></li>
+        <li><b>120×/s</b><span>the screen asks its grid whether you are touching it</span></li>
+      </ul>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 320 420" class="hero-phone">
+        <defs>
+          <linearGradient id="screenGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent)" stop-opacity=".30"/>
+            <stop offset="55%" stop-color="var(--accent-2)" stop-opacity=".16"/>
+            <stop offset="100%" stop-color="var(--signal)" stop-opacity=".12"/>
+          </linearGradient>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--panel-hi)"/>
+            <stop offset="100%" stop-color="var(--panel)"/>
+          </linearGradient>
+        </defs>
+        <!-- radio waves: drawn first so the phone paints over them -->
+        <g class="waves" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round">
+          <circle class="w1" cx="160" cy="62" r="36"/>
+          <circle class="w2" cx="160" cy="62" r="36"/>
+          <circle class="w3" cx="160" cy="62" r="36"/>
+        </g>
+        <rect x="76" y="40" width="168" height="336" rx="30" fill="url(#bodyGrad)" stroke="var(--line-hi)" stroke-width="2"/>
+        <rect x="86" y="50" width="148" height="316" rx="23" fill="url(#screenGrad)" stroke="var(--line)" stroke-width="1"/>
+        <rect x="142" y="56" width="36" height="7" rx="3.5" fill="var(--bg)" opacity=".8"/>
+        <g class="hero-bars" fill="var(--accent)">
+          <rect x="104" y="300" width="14" height="28" rx="3" opacity=".55"/>
+          <rect x="124" y="286" width="14" height="42" rx="3" opacity=".7"/>
+          <rect x="144" y="266" width="14" height="62" rx="3" opacity=".85"/>
+          <rect x="164" y="248" width="14" height="80" rx="3"/>
+          <rect x="184" y="276" width="14" height="52" rx="3" opacity=".7"/>
+          <rect x="204" y="292" width="14" height="36" rx="3" opacity=".55"/>
+        </g>
+        <path class="hero-trace" d="M96 190 q32 -44 64 0 t64 0" fill="none" stroke="var(--signal)" stroke-width="2.4" stroke-linecap="round" opacity=".9"/>
+        <g opacity=".85">
+          <circle cx="112" cy="120" r="3" fill="var(--accent)"/>
+          <circle cx="126" cy="120" r="3" fill="var(--accent)" opacity=".5"/>
+          <circle cx="140" cy="120" r="3" fill="var(--accent)" opacity=".25"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span></span></div>
+</section>
+
+<!-- ───────────────────────── 1. ANATOMY ───────────────────────── -->
+<section id="anatomy" class="sec">
+  <div class="sec-head">
+    <p class="sec-num">01</p>
+    <h2>The stack, layer by layer</h2>
+    <p class="sec-lede">
+      A phone is not a box of parts — it is a <em>stack</em>. Every layer is as thin
+      as it can be so the ones above and below it fit. Tap a layer to pull it out.
+    </p>
+  </div>
+
+  <div class="anatomy-wrap">
+    <div class="anatomy-stage">
+      <div id="anatomySvgHost" class="svg-host">
+        <noscript><p class="fallback">Layers, top to bottom: cover glass, touch digitizer, display panel, midframe, logic board, battery, back cover with antennas.</p></noscript>
+      </div>
+      <p class="hint">Tap a slab, or use <kbd>↑</kbd> <kbd>↓</kbd> once one is selected.</p>
+    </div>
+    <aside class="anatomy-detail" id="anatomyDetail" aria-live="polite">
+      <!-- filled by JS -->
+    </aside>
+  </div>
+</section>
+
+<!-- ───────────────────────── 2. SIGNAL JOURNEY ───────────────────────── -->
+<section id="journey" class="sec alt">
+  <div class="sec-head">
+    <p class="sec-num">02</p>
+    <h2>Your voice, all the way there</h2>
+    <p class="sec-lede">
+      Saying "hello" moves a diaphragm by a fraction of a micron. Twelve
+      transformations later it moves someone else's eardrum, hundreds of
+      kilometres away, about a tenth of a second later. Press play.
+    </p>
+  </div>
+
+  <div class="journey-wrap">
+    <div class="journey-viz">
+      <canvas id="journeyCanvas" width="760" height="230" aria-label="Visualisation of the signal at the current stage"></canvas>
+      <div class="journey-progress"><div class="journey-progress-fill" id="journeyProgress"></div></div>
+    </div>
+
+    <div class="journey-controls">
+      <button class="btn btn-primary" id="journeyPlay" type="button">▶ Play</button>
+      <button class="btn" id="journeyPrev" type="button">◀ Back</button>
+      <button class="btn" id="journeyNext" type="button">Next ▶</button>
+      <label class="speed">
+        Speed
+        <input type="range" id="journeySpeed" min="0.5" max="3" step="0.25" value="1">
+        <span id="journeySpeedOut">1×</span>
+      </label>
+    </div>
+
+    <ol class="journey-track" id="journeyTrack">
+      <noscript><li class="fallback">Voice → microphone → ADC → codec → packets → baseband → radio → antenna → tower → core network → internet → the other phone.</li></noscript>
+    </ol>
+
+    <div class="journey-detail card" id="journeyDetail" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 3. RADIO ───────────────────────── -->
+<section id="radio" class="sec">
+  <div class="sec-head">
+    <p class="sec-num">03</p>
+    <h2>Why your phone carries so many radios</h2>
+    <p class="sec-lede">
+      One number decides almost everything about a mobile network: the carrier
+      frequency. Low frequencies travel far and pass through walls but carry
+      little. High frequencies carry enormous amounts and stop at a window pane.
+      Drag the slider.
+    </p>
+  </div>
+
+  <div class="radio-wrap">
+    <div class="radio-main card">
+      <canvas id="radioCanvas" width="760" height="260" aria-label="Wave and coverage visualisation for the selected frequency"></canvas>
+      <div class="radio-slider">
+        <label for="radioFreq">Carrier frequency</label>
+        <input type="range" id="radioFreq" min="0" max="1000" value="330" step="1" aria-describedby="radioReadout">
+        <div class="radio-scale" aria-hidden="true">
+          <span>600 MHz</span><span>2 GHz</span><span>6 GHz</span><span>39 GHz</span>
+        </div>
+      </div>
+    </div>
+    <aside class="radio-readout card" id="radioReadout" aria-live="polite"></aside>
+  </div>
+  <div class="band-chips" id="bandChips"></div>
+</section>
+
+<!-- ───────────────────────── 4. CELLS ───────────────────────── -->
+<section id="cells" class="sec alt">
+  <div class="sec-head">
+    <p class="sec-num">04</p>
+    <h2>Cells, and the moment you are handed over</h2>
+    <p class="sec-lede">
+      The network is a mosaic. Your phone constantly measures every tower it can
+      hear and reports back; when a neighbour has been convincingly better for
+      long enough, the network moves your call mid-sentence. Drag the phone — or
+      let it walk.
+    </p>
+  </div>
+
+  <div class="cells-wrap">
+    <div class="cells-stage card">
+      <canvas id="cellsCanvas" width="760" height="460" aria-label="Map of cell towers with a draggable phone"></canvas>
+      <div class="cells-controls">
+        <button class="btn btn-primary" id="cellsWalk" type="button">▶ Walk</button>
+        <button class="btn" id="cellsReset" type="button">Reset</button>
+        <label class="toggle"><input type="checkbox" id="cellsShowRsrp" checked> Signal map</label>
+        <label class="toggle"><input type="checkbox" id="cellsShowHex" checked> Cell edges</label>
+      </div>
+    </div>
+    <aside class="cells-side">
+      <div class="card">
+        <h3 class="card-h">Measurement report</h3>
+        <ul class="rsrp-list" id="rsrpList"></ul>
+        <p class="note" id="cellsServing"></p>
+      </div>
+      <div class="card">
+        <h3 class="card-h">Handover log</h3>
+        <ol class="log" id="handoverLog"><li class="muted">Move the phone to trigger a handover.</li></ol>
+        <p class="note">A neighbour must beat the serving cell by a margin (hysteresis) and hold it for a
+        short time-to-trigger before the network acts — otherwise you would ping-pong between towers.</p>
+        <p class="note">The hexagons are the textbook. The colours are what the radio actually does: terrain,
+        buildings and unequal transmit powers pull the real cell boundaries well away from them.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ───────────────────────── 5. TOUCH ───────────────────────── -->
+<section id="touch" class="sec">
+  <div class="sec-head">
+    <p class="sec-num">05</p>
+    <h2>How the glass feels your finger</h2>
+    <p class="sec-lede">
+      Under the glass is a grid of transparent electrodes. Where your finger comes
+      close it steals a tiny amount of charge — femtofarads — from the crossing
+      below it. The controller reads the whole grid, finds the bump, and hands the
+      operating system a single pair of coordinates. Move your pointer over the panel.
+    </p>
+  </div>
+
+  <div class="touch-wrap">
+    <div class="touch-stage card">
+      <canvas id="touchCanvas" width="420" height="600" aria-label="Capacitive sensing grid that responds to pointer position"></canvas>
+      <p class="hint">Move over the panel · press and hold for a firmer press · touch works too</p>
+    </div>
+    <aside class="touch-side">
+      <div class="card">
+        <h3 class="card-h">What the controller sees</h3>
+        <div class="touch-readout" id="touchReadout"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-h">View</h3>
+        <div class="seg" id="touchModes" role="group" aria-label="Sensing view">
+          <button class="seg-btn is-on" data-mode="heat" type="button">Heat map</button>
+          <button class="seg-btn" data-mode="grid" type="button">Electrodes</button>
+          <button class="seg-btn" data-mode="both" type="button">Both</button>
+        </div>
+        <p class="note">Real panels scan mutual capacitance at every crossing 60–240 times a second.
+        The controller rejects a palm, interpolates the peak to far finer than the 4–5&nbsp;mm electrode
+        pitch, and only then reports a touch.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ───────────────────────── 6. SOC ───────────────────────── -->
+<section id="soc" class="sec alt">
+  <div class="sec-head">
+    <p class="sec-num">06</p>
+    <h2>One chip, a dozen specialists</h2>
+    <p class="sec-lede">
+      Almost everything is on a single piece of silicon the size of a fingernail.
+      It is not one processor but a committee of them, and the trick is that most
+      are asleep most of the time. Pick a workload and watch who wakes up.
+    </p>
+  </div>
+
+  <div class="soc-workloads" id="socWorkloads" role="group" aria-label="Workload"></div>
+  <div class="soc-wrap">
+    <div class="soc-stage card">
+      <div id="socSvgHost" class="svg-host">
+        <noscript><p class="fallback">Blocks on the die: CPU cores, GPU, NPU, ISP, DSP, modem, memory controller, display engine, video codec, secure enclave.</p></noscript>
+      </div>
+    </div>
+    <aside class="soc-detail card" id="socDetail" aria-live="polite"></aside>
+  </div>
+</section>
+
+<!-- ───────────────────────── 7. SOFTWARE ───────────────────────── -->
+<section id="stack" class="sec">
+  <div class="sec-head">
+    <p class="sec-num">07</p>
+    <h2>From your tap to the transistor</h2>
+    <p class="sec-lede">
+      A tap on a button crosses seven or eight layers of software before anything
+      physical happens — and one of those layers runs on a processor your
+      operating system cannot see. Click a layer.
+    </p>
+  </div>
+  <div class="stack-wrap" id="stackWrap">
+    <noscript><p class="fallback">App → framework and runtime → system services → kernel → drivers → firmware → baseband RTOS → hardware.</p></noscript>
+  </div>
+</section>
+
+<section class="sec alt closing">
+  <div class="sec-head">
+    <h2>The short version</h2>
+  </div>
+  <div class="closing-grid">
+    <div class="card"><h3 class="card-h">It is a radio first</h3><p>Everything else is decoration on top of a machine whose job is to turn bits into a modulated wave and back, thousands of times a second, while moving.</p></div>
+    <div class="card"><h3 class="card-h">It is mostly asleep</h3><p>The reason a phone lasts a day is that its blocks race to finish and then power down. Average draw is measured in tens of milliwatts, not watts.</p></div>
+    <div class="card"><h3 class="card-h">The network does the hard part</h3><p>Your phone is one end of a scheduled conversation. The tower decides, millisecond by millisecond, who transmits, when, on which subcarriers, and how densely.</p></div>
+    <div class="card"><h3 class="card-h">Two computers, one box</h3><p>The applications processor runs your OS. The baseband runs its own real-time OS, its own firmware, and its own timing — and the two only exchange messages.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <p>Built as an interactive explainer. Figures are typical, rounded, order-of-magnitude values
+  for current consumer hardware and cellular networks — not a spec sheet for any particular device.</p>
+  <p class="foot-meta">No trackers, no frameworks, no build step. Just HTML, CSS and a few hundred lines of JavaScript.</p>
+</footer>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/anatomy.js"></script>
+<script src="assets/js/journey.js"></script>
+<script src="assets/js/spectrum.js"></script>
+<script src="assets/js/cells.js"></script>
+<script src="assets/js/touch.js"></script>
+<script src="assets/js/soc.js"></script>
+<script src="assets/js/stack.js"></script>
+<script>window.PhoneApp && window.PhoneApp.boot();</script>
+</body>
+</html>
