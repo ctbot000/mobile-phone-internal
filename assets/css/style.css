@@ -98,6 +98,7 @@ kbd {
 .skip-link:focus { top: 12px; }
 
 .fallback, .note, .hint { color: var(--muted); font-size: .86rem; line-height: 1.55; }
+.note + .note { margin-top: .6rem; }
 .muted { color: var(--muted); }
 
 /* --- top bar -------------------------------------------------------------- */
@@ -506,7 +507,7 @@ input[type="range"]::-moz-range-thumb {
 .closing .sec-head { margin-bottom: 1.6rem; }
 .closing-grid {
   max-width: var(--maxw); margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .9rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(264px, 1fr)); gap: .9rem;
 }
 .closing-grid p { color: var(--text-dim); font-size: .92rem; }
 .site-foot {
